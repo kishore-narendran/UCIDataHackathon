@@ -10,7 +10,7 @@ for row in reader:
     device_type_id = int(row[6])
     id_to_type_id[device_id] = device_type_id
 
-file_name = 'log_data_september_first_half.csv'
+file_name = 'log_data_september_second_half.csv'
 
 print '========================================================================'
 print 'Started parsing ', file_name
@@ -58,22 +58,29 @@ for row in reader:
         if device_type_id not in log_info:
             log_info[device_type_id] = {}
             log_info[device_type_id][app_version_id] = {}
-            log_info[device_type_id][app_version_id][timestamp] = [battery, back_battery, cpu, back_cpu, run_time, front_run_time, data_all, back_data, data_wifi, data_mobile, memory, data_size, cache_size, other_size]
+            log_info[device_type_id][app_version_id][device_id] = {}
+            log_info[device_type_id][app_version_id][device_id][timestamp] = [battery, back_battery, cpu, back_cpu, run_time, front_run_time, data_all, back_data, data_wifi, data_mobile, memory, data_size, cache_size, other_size]
         elif app_version_id not in log_info[device_type_id]:
             log_info[device_type_id][app_version_id] = {}
-            log_info[device_type_id][app_version_id][timestamp] = [battery, back_battery, cpu, back_cpu, run_time, front_run_time, data_all, back_data, data_wifi, data_mobile, memory, data_size, cache_size, other_size]
+            log_info[device_type_id][app_version_id][device_id] = {}
+            log_info[device_type_id][app_version_id][device_id][timestamp] = [battery, back_battery, cpu, back_cpu, run_time, front_run_time, data_all, back_data, data_wifi, data_mobile, memory, data_size, cache_size, other_size]
+        elif device_id not in log_info[device_type_id][app_version_id]:
+            log_info[device_type_id][app_version_id][device_id] = {}
+            log_info[device_type_id][app_version_id][device_id][timestamp] = [battery, back_battery, cpu, back_cpu, run_time, front_run_time, data_all, back_data, data_wifi, data_mobile, memory, data_size, cache_size, other_size]
         else:
-            log_info[device_type_id][app_version_id][timestamp] = [battery, back_battery, cpu, back_cpu, run_time, front_run_time, data_all, back_data, data_wifi, data_mobile, memory, data_size, cache_size, other_size]
+            log_info[device_type_id][app_version_id][device_id][timestamp] = [battery, back_battery, cpu, back_cpu, run_time, front_run_time, data_all, back_data, data_wifi, data_mobile, memory, data_size, cache_size, other_size]
 
     except:
         print 'Row', i
         print 'File Name', file_name
 
     i += 1
-    # if i == 100000:
+    # if i == 2:
     #     break
     if i & 0b1111111111111111 == 0b1111111111111111:
         print 'Parsed', i, 'logs'
+
+# print log_info
 
 log_file.close()
 print '========================================================================'
