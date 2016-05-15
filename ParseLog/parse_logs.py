@@ -1,5 +1,5 @@
-import pickle
 import csv
+import json
 
 file_name = 'log_data_september_second_half.csv'
 log_info = dict()
@@ -57,8 +57,8 @@ print '========================================================================'
 print '========================================================================'
 print 'Started pickling ', file_name
 print '========================================================================'
-with open(file_name.split('.')[0] + '_partial' + '.pickle', 'wb') as handle:
-  pickle.dump(log_info, handle)
+with open(file_name.split('.')[0] + '_partial' + '.json', 'w') as handle:
+    json.dump(log_info, handle)
 print '========================================================================'
 print 'Finished pickling ', file_name
 print '========================================================================'
