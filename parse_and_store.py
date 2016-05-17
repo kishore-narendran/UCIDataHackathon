@@ -49,8 +49,8 @@ for row in reader:
             row[1],
             row[2],
             row[3],
-            int(row[5]) if row[0].isdigit() else -1,
-            int(row[7]) if row[0].isdigit() else -1,
+            int(row[5]) if row[5].isdigit() else -1,
+            int(row[7]) if row[7].isdigit() else -1,
         ]
         records.append(out_record)
 
