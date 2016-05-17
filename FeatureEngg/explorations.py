@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.stats.mstats import mode
 import msgpack_numpy as msgnp
+import cPickle as pickle
 
 from connectDB import *
 db = connectDB()
@@ -39,6 +40,13 @@ handle = open('devAppBase_first_september', 'wb')
 handle.write(msgnp.packb(device_appBase, default=msgnp.encode))
 handle.close()
 
-handle = open('devAppBase_first_september', 'rb')
-dev_AppBase = msgnp.unpackb(handle.read(), object_hook=msgnp.decode)
+
+apps = db.read_table('applications')
+appDict = {}
+for app in all_apps:
+	appDict[app] = apps[apps['application_version_id'] == app]['name'].values[0]
+
+
+handle = open('apps', 'wb')
+handle.write(msgnp.packb(appDict, default=msgnp.encode))
 handle.close()

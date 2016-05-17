@@ -2,6 +2,7 @@ DROP TABLE device_log_data;
 DROP TABLE sub_device_log_data;
 DROP TABLE device_app_groups;
 DROP TABLE sub_device_app_groups;
+DROP TABLE applications;
 
 SELECT 	device_type_id, devices.device_id, log_timestamp, application_version_id, 
 		battery, back_battery, cpu, back_cpu, memory, 
@@ -24,3 +25,5 @@ SELECT 	device_type_id, application_version_id,
 INTO device_app_groups
 FROM device_log_data
 GROUP BY device_type_id, application_version_id;
+
+SELECT application_version_id, name INTO applications FROM application_versions;
