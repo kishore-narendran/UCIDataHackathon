@@ -118,7 +118,7 @@ for row in reader:
     #     float(row[16]) if is_real(row[16]) else None,
     #     float(row[17]) if is_real(row[17]) else None,
     # ]
-    if out_record[0] == -1:
+    if out_record[0] == -1 or out_record[3] == -1:
         continue
     records.append(out_record)
 
