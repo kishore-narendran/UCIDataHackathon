@@ -55,10 +55,10 @@ print '========================================================================'
 
 
 print '========================================================================'
-print 'Started pickling ', file_name
+print 'Started packing into JSON ', file_name
 print '========================================================================'
 with open(file_name.split('.')[0] + '_partial' + '.json', 'w') as handle:
     json.dump(log_info, handle)
 print '========================================================================'
-print 'Finished pickling ', file_name
+print 'Finished packing into JSON ', file_name
 print '========================================================================'
