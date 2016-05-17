@@ -81,3 +81,13 @@ application_versions
  m2_category            | integer | 
 
 
+
+
+log_data : 38,711,890
+devices : 3,886
+device_app_groups : 111,112
+
+
+first half of Sept:
+#devices : 333
+#apps : 34196

@@ -8,7 +8,7 @@ SELECT 	device_type_id, devices.device_id, log_timestamp, application_version_id
 		data_all, run_time, front_run_time, 
 		data_size, cache_size, code_size 
 INTO device_log_data 
-FROM devices JOIN log_data
+FROM devices INNER JOIN log_data
 ON devices.device_id = log_data.device_id;
 
 -- SELECT * 
