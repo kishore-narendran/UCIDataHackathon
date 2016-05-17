@@ -12,17 +12,21 @@ handle = open('devAppBase_september', 'rb')
 dev_AppBase = msgnp.unpackb(handle.read(), object_hook=msgnp.decode)
 handle.close()
 
-k = 10
+handle = open('apps', 'rb')
+app_names = msgnp.unpackb(handle.read(), object_hook=msgnp.decode)
+handle.close()
 
-app_clusters = {}
-for device_id, data in dev_AppBase.items():
-	X, app_ids = data
-	model = KMeans(n_clusters = k)
-	labels = model.fit_predict(X)
-	app_clusters[device_id] = (labels, app_ids)
+# k = 10
+
+# app_clusters = {}
+# for device_id, data in dev_AppBase.items():
+# 	X, app_ids = data
+# 	model = KMeans(n_clusters = k)
+# 	labels = model.fit_predict(X)
+# 	app_clusters[device_id] = (labels, app_ids)
 
 
-def cluster(dev_AppBase, device_id, k = 3):
+def cluster(dev_AppBase, app_names, device_id):
 	import numpy as np
 	from scipy.stats.mstats import mode
 	import msgpack_numpy as msgnp
@@ -43,7 +47,10 @@ def cluster(dev_AppBase, device_id, k = 3):
 		k_cluster = {}
 		for i in xrange(k):
 			apps = app_ids[np.where(labels = i)[0]]
-			k_cluster[i] = apps
+			names = []
+			for a in apps:
+				names += [app_names[a]]
+			k_cluster[i] = names
 
 		clustering[k] = k_cluster
 
