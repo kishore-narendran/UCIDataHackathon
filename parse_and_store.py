@@ -12,11 +12,11 @@ def print_status(started, file_name):
         print '========================================================================'
 
 def insert_into_records(conn, records):
-    args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
-    cur.execute("INSERT INTO devices VALUES " + args_str)
+    args_str = ','.join(cur.mogrify("(%s, %s, %s)", x) for x in records)
+    cur.execute("INSERT INTO carriers VALUES " + args_str)
     conn.commit()
 
-file_name = 'mobdata/devices.csv'
+file_name = 'mobdata/carriers.csv'
 first_row_length = 41
 print_status(True, file_name)
 
@@ -41,14 +41,13 @@ for row in reader:
         #     print '# of Attributes Mismatch, Skipping Line', i
         #     continue
 
-        # i i i t i t 0 1 6 7 8 14
+        # i t t t i i 0 1 2 3 5 7 - Application Versions
+        # i i t 0 1 2 - Carriers
+        # i i i t i t 0 1 6 7 8 14 - Devices
         out_record = [
             int(row[0]) if row[0].isdigit() else -1,
             int(row[1]) if row[1].isdigit() else -1,
-            int(row[6]) if row[6].isdigit() else -1,
-            row[7],
-            int(row[8]) if row[8].isdigit() else -1,
-            row[14]
+            row[2]
         ]
         records.append(out_record)
 
