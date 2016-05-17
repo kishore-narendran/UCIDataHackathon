@@ -56,12 +56,12 @@ for row in reader:
         # i i i t i t 0 1 6 7 8 14 - Devices
         # t i f f f i - Device Battery Stats
         out_record = [
-            row[1],
-            int(row[2]) if row[2].isdigit() else -1,
+            row[0],
+            int(row[1]) if row[1].isdigit() else -1,
+            float(row[2]) if is_real(row[2]) else 0.0,
             float(row[3]) if is_real(row[3]) else 0.0,
             float(row[4]) if is_real(row[4]) else 0.0,
-            float(row[5]) if is_real(row[5]) else 0.0,
-            int(row[6]) if row[6].isdigit() else 1,
+            int(row[5]) if row[5].isdigit() else 1,
         ]
         records.append(out_record)
 
