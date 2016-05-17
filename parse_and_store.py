@@ -49,12 +49,16 @@ for row in reader:
 
     i += 1
 
-    if i == 6:
-        break
-    if i % 4 == 0:
-        args_str = ','.join(cur.mogrify("(%d, %s, %s, %s, %d, %d)", x) for x in records)
+    if i % 10000 == 0:
+        args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
         cur.execute("INSERT INTO application_versions VALUES " + args_str)
-        print 'Parsed, executed and inserted', i ,'records'
+        conn.commit()
+	print 'Parsed, executed and inserted', i ,'records'
+	records = []
 
+args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
+cur.execute("INSERT INTO application_versions VALUES " + args_str)
+conn.commit()
 handle.close()
 conn.close()
+print_status(False, file_name)
