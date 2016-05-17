@@ -18,8 +18,8 @@ def insert_into_records(conn, records):
     # Mobile Signal Info
     # args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
     # Log Info
-    # args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
-    cur.execute("INSERT INTO mobile_signal_info VALUES " + args_str)
+    args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
+    cur.execute("INSERT INTO log_data VALUES " + args_str)
     conn.commit()
 
 def is_real(num):
@@ -51,7 +51,7 @@ for row in reader:
         i += 1
         continue
 
-    print row
+    # print row
     row_length = len(row)
 
     # if row_length != first_row_length:
