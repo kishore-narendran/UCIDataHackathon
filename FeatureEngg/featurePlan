@@ -15,9 +15,9 @@ wifi_info
 
  timestamp                      | timestamp without time zone | not null
  device_id                      | integer                     | 
- connection_speed               | integer                     | 
- connection_wifi_band_frequency | integer                     | 
- signal_strength_dbm            | integer                     | 
+ connection_speed               | integer                     |  *****************
+ connection_wifi_band_frequency | integer                     |  
+ signal_strength_dbm            | integer                     |  *******************
 
 
 log_data
@@ -30,7 +30,7 @@ log_data
  back_battery           | real                        | 
  cpu                    | real                        | 
  back_cpu               | real                        | 
- memory                 | integer                     | 
+ memory                 | integer                     | 	********************
  data_all               | integer                     | 
  back_data              | integer                     | 
  data_wifi              | integer                     | 
@@ -41,7 +41,7 @@ log_data
  code_size              | integer                     | 
  data_size              | integer                     | 
  cache_size             | integer                     | 
- other_size             | integer                     | 
+ other_size             | integer                     | 	********************
 
 
 devices
