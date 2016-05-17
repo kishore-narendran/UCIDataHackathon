@@ -17,7 +17,7 @@ def insert_into_records(conn, records):
     conn.commit()
 
 file_name = 'mobdata/devices.csv'
-first_row_length = 33
+first_row_length = 41
 print_status(True, file_name)
 
 # Reading the CSV file, and creating a CSV reader handle
@@ -37,9 +37,9 @@ for row in reader:
     try:
         row_length = len(row)
 
-        if row_length != first_row_length:
-            print '# of Attributes Mismatch, Skipping Line', i
-            continue
+        # if row_length != first_row_length:
+        #     print '# of Attributes Mismatch, Skipping Line', i
+        #     continue
 
         # i i i t i t 0 1 6 7 8 14
         out_record = [
