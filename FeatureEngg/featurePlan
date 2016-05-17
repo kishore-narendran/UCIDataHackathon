@@ -1,0 +1,83 @@
+mobile_signal_info
+
+ timestamp | timestamp without time zone | not null
+ device_id | integer                     | 
+ cdma_dbm  | real                        | 
+ evdo_dbm  | real                        | 
+ gsm_dbm   | real                        | 
+ lte_dbm   | real                        | 
+ wcdma     | real                        | 
+ longitude | real                        | 
+ latitude  | real                        | 
+
+
+wifi_info
+
+ timestamp                      | timestamp without time zone | not null
+ device_id                      | integer                     | 
+ connection_speed               | integer                     | 
+ connection_wifi_band_frequency | integer                     | 
+ signal_strength_dbm            | integer                     | 
+
+
+log_data
+
+ device_id              | integer                     | 
+ log_timestamp          | timestamp without time zone | not null
+ package_name           | text                        | 
+ application_version_id | integer                     | 
+ battery                | real                        | 
+ back_battery           | real                        | 
+ cpu                    | real                        | 
+ back_cpu               | real                        | 
+ memory                 | integer                     | 
+ data_all               | integer                     | 
+ back_data              | integer                     | 
+ data_wifi              | integer                     | 
+ data_mobile            | integer                     | 
+ crash_count            | integer                     | 
+ run_time               | integer                     | 
+ front_run_time         | integer                     | 
+ code_size              | integer                     | 
+ data_size              | integer                     | 
+ cache_size             | integer                     | 
+ other_size             | integer                     | 
+
+
+devices
+
+      Column      |  Type   | Modifiers 
+------------------+---------+-----------
+ device_id        | integer | not null
+ parent_device_id | integer | 
+ device_type_id   | integer | 
+ device_type      | text    | 
+ device_os        | integer | 
+ mnc              | text    | 
+
+
+Do data_wifi and data_mobile ever be non-zero together? Ever mutually exclusive?
+Map (timestamp and device ids) to get (signal_strength_dbm + run_time + data) for entity
+(Range?) Join wifi_info with log_data for (run_time + data_wifi) on (device id + timestamp)
+(Range?) Join mobile_signal_info with log_data for (cdma_dbm + evdo_dbm + gsm_dbm + lte_dbm + run_time + data_wifi) on (device id + timestamp)
+Categorize the dbm-s into 5 ranges and for each range, find the data and run time spent on each of signal architectures
+Will be finally group by-ed over device id, aggregating average data and time over all timestamps
+
+These will create the network characteristics...
+
+
+Join devices and log_data on device_id to generate the table:
+device_type + device_id + timestamp + app_version_id + battery + back_battery + cpu + back_cpu + memory + data_all + run_time + front_run_time + data_size + cache_size + code_size
+Group by device_type and aggregate average across all devices and timestamps
+
+
+application_versions
+
+ application_version_id | integer | not null
+ package_name           | text    | 
+ name                   | text    | 
+ version                | text    | 
+ app_type               | integer | 
+ m2_category            | integer | 
+
+
