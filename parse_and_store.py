@@ -63,6 +63,7 @@ for row in reader:
         print 'Parsed, executed and inserted', i ,'records'
         records = []
 
+print 'Total records written',i
 insert_into_records(conn, records)
 handle.close()
 conn.close()
