@@ -16,7 +16,9 @@ def insert_into_records(conn, records):
     # Wifi Info
     # args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s)", x) for x in records)
     # Mobile Signal Info
-    args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
+    # args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
+    # Log Info
+    # args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
     cur.execute("INSERT INTO mobile_signal_info VALUES " + args_str)
     conn.commit()
 
@@ -27,7 +29,7 @@ def is_real(num):
     except ValueError:
         return False
 
-file_name = 'mobdata/mobile_info_all_september.csv'
+file_name = 'mobdata/log_data_september_first_half.csv'
 first_row_length = 41
 print_status(True, file_name)
 
@@ -62,6 +64,29 @@ for row in reader:
     # t i f f f i - Device Battery Stats
     # t i i i i 0 1 4 5 6 - Wifi Info
     # t i f f f f f f f - 0 1 2 5 8 10 14 16 17 - Mobile Signal Info
+    # i t t i f x 4 i x 12
+    out_record = [
+        int(row[0]) if row[0].isdigit() else -1,
+        row[4],
+        row[5],
+        int(row[7]) if row[7].isdigit() else -1,
+        float(row[9]) if is_real(row[9]) else None,
+        float(row[10]) if is_real(row[10]) else None,
+        float(row[11]) if is_real(row[11]) else None,
+        float(row[12]) if is_real(row[12]) else None,
+        int(row[13]) if row[13].isdigit() else -1,
+        int(row[14]) if row[14].isdigit() else -1,
+        int(row[15]) if row[15].isdigit() else -1,
+        int(row[16]) if row[16].isdigit() else -1,
+        int(row[17]) if row[17].isdigit() else -1,
+        int(row[18]) if row[18].isdigit() else -1,
+        int(row[19]) if row[19].isdigit() else -1,
+        int(row[20]) if row[20].isdigit() else -1,
+        int(row[21]) if row[21].isdigit() else -1,
+        int(row[22]) if row[22].isdigit() else -1,
+        int(row[23]) if row[23].isdigit() else -1,
+        int(row[24]) if row[24].isdigit() else -1,
+    ]
     # #For device battery stats
     # out_record = [
     #     row[0],
@@ -81,18 +106,18 @@ for row in reader:
     #     int(row[6]) if row[6].isdigit() else -1
     #  ]
 
-    # For Mobile Signal Info
-    out_record = [
-        row[0],
-        int(row[1]) if row[1].isdigit() else -1,
-        float(row[2]) if is_real(row[2]) else None,
-        float(row[5]) if is_real(row[5]) else None,
-        float(row[8]) if is_real(row[8]) else None,
-        float(row[10]) if is_real(row[10]) else None,
-        float(row[14]) if is_real(row[14]) else None,
-        float(row[16]) if is_real(row[16]) else None,
-        float(row[17]) if is_real(row[17]) else None,
-    ]
+    # # For Mobile Signal Info
+    # out_record = [
+    #     row[0],
+    #     int(row[1]) if row[1].isdigit() else -1,
+    #     float(row[2]) if is_real(row[2]) else None,
+    #     float(row[5]) if is_real(row[5]) else None,
+    #     float(row[8]) if is_real(row[8]) else None,
+    #     float(row[10]) if is_real(row[10]) else None,
+    #     float(row[14]) if is_real(row[14]) else None,
+    #     float(row[16]) if is_real(row[16]) else None,
+    #     float(row[17]) if is_real(row[17]) else None,
+    # ]
 
     records.append(out_record)
 
