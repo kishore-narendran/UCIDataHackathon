@@ -13,10 +13,17 @@ def print_status(started, file_name):
 
 def insert_into_records(conn, records):
     args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
-    cur.execute("INSERT INTO application_versions VALUES " + args_str)
+    cur.execute("INSERT INTO device_battery_stats VALUES " + args_str)
     conn.commit()
 
-file_name = 'mobdata/application_versions.csv'
+def is_real(num):
+    try:
+        num = float(num)
+        return True
+    except ValueError:
+        return False
+
+file_name = 'mobdata/device_battery_stats_all_september.csv'
 first_row_length = 41
 print_status(True, file_name)
 
@@ -44,13 +51,14 @@ for row in reader:
         # i t t t i i 0 1 2 3 5 7 - Application Versions
         # i i t 0 1 2 - Carriers
         # i i i t i t 0 1 6 7 8 14 - Devices
+        # t i f f f i - Device Battery Stats
         out_record = [
-            int(row[0]) if row[0].isdigit() else -1,
             row[1],
-            row[2],
-            row[3],
-            int(row[5]) if row[5].isdigit() else -1,
-            int(row[7]) if row[7].isdigit() else -1,
+            int(row[2]) if row[2].isdigit() else -1,
+            float(row[3]) if is_real(row[3]) else 0.0,
+            float(row[4]) if is_real(row[4]) else 0.0,
+            float(row[5]) if is_real(row[5]) else 0.0,
+            int(row[6]) if row[6].isdigit() else 1,
         ]
         records.append(out_record)
 
