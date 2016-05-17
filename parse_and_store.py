@@ -14,7 +14,7 @@ def print_status(started, file_name):
 def insert_into_records(conn, records):
     #args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
     # Wifi Info
-     args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s)", x) for x in records)
+    args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s)", x) for x in records)
     # Mobile Signal Info
     # args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
     cur.execute("INSERT INTO device_battery_stats VALUES " + args_str)
@@ -72,13 +72,12 @@ for row in reader:
         ]
 	'''
 
-        # For Wifi Info
-         out_record = [
-             row[0],
-             int(row[1]) if row[1].isdigit() else -1,
-             int(row[4]) if row[4].isdigit() else -1,
-             int(row[5]) if row[5].isdigit() else -1,
-             int(row[6]) if row[6].isdigit() else -1,
+        out_record = [
+            row[0],
+            int(row[1]) if row[1].isdigit() else -1,
+            int(row[4]) if row[4].isdigit() else -1,
+            int(row[5]) if row[5].isdigit() else -1,
+            int(row[6]) if row[6].isdigit() else -1
          ]
 
         # For Mobile Signal Info
