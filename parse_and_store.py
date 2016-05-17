@@ -15,7 +15,7 @@ def insert_into_records(conn, records):
     #args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
     # Wifi Info
     # args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s)", x) for x in records)
-    Mobile Signal Info
+    # Mobile Signal Info
     args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
     cur.execute("INSERT INTO mobile_signal_info VALUES " + args_str)
     conn.commit()
@@ -80,17 +80,17 @@ for row in reader:
         #     int(row[6]) if row[6].isdigit() else -1
         #  ]
 
-        For Mobile Signal Info
+        # For Mobile Signal Info
         out_record = [
             row[0],
             int(row[1]) if row[1].isdigit() else -1,
-            int(row[2]) if row[2].isdigit() else -1,
-            int(row[5]) if row[5].isdigit() else -1,
-            int(row[8]) if row[8].isdigit() else -1,
-            int(row[10]) if row[10].isdigit() else -1,
-            int(row[14]) if row[14].isdigit() else -1,
-            int(row[16]) if row[16].isdigit() else -1,
-            int(row[17]) if row[17].isdigit() else -1,
+            float(row[2]) if is_real(row[2]) else 'NULL',
+            float(row[5]) if is_real(row[5]) else 'NULL',
+            float(row[8]) if is_real(row[8]) else 'NULL',
+            float(row[10]) if is_real(row[10]) else 'NULL',
+            float(row[14]) if is_real(row[14]) else 'NULL',
+            float(row[16]) if is_real(row[16]) else 'NULL',
+            float(row[17]) if is_real(row[17]) else 'NULL',
         ]
 
         records.append(out_record)
