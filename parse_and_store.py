@@ -41,6 +41,9 @@ i = 0
 
 records = []
 for row in reader:
+    if i == 0:
+        i += 1
+        continue
     try:
         row_length = len(row)
 
