@@ -85,13 +85,13 @@ for row in reader:
     out_record = [
         row[0],
         int(row[1]) if row[1].isdigit() else -1,
-        float(row[2]) if is_real(row[2]) else 'NULL',
-        float(row[5]) if is_real(row[5]) else 'NULL',
-        float(row[8]) if is_real(row[8]) else 'NULL',
-        float(row[10]) if is_real(row[10]) else 'NULL',
-        float(row[14]) if is_real(row[14]) else 'NULL',
-        float(row[16]) if is_real(row[16]) else 'NULL',
-        float(row[17]) if is_real(row[17]) else 'NULL',
+        float(row[2]) if is_real(row[2]) else None,
+        float(row[5]) if is_real(row[5]) else None,
+        float(row[8]) if is_real(row[8]) else None,
+        float(row[10]) if is_real(row[10]) else None,
+        float(row[14]) if is_real(row[14]) else None,
+        float(row[16]) if is_real(row[16]) else None,
+        float(row[17]) if is_real(row[17]) else None,
     ]
 
     records.append(out_record)
