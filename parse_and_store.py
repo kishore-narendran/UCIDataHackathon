@@ -14,10 +14,10 @@ def print_status(started, file_name):
 def insert_into_records(conn, records):
     #args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
     # Wifi Info
-    args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s)", x) for x in records)
-    # Mobile Signal Info
-    # args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
-    cur.execute("INSERT INTO wifi_info VALUES " + args_str)
+    # args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s)", x) for x in records)
+    Mobile Signal Info
+    args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s, %s)", x) for x in records)
+    cur.execute("INSERT INTO mobile_signal_info VALUES " + args_str)
     conn.commit()
 
 def is_real(num):
@@ -61,37 +61,37 @@ for row in reader:
         # t i f f f i - Device Battery Stats
         # t i i i i 0 1 4 5 6 - Wifi Info
         # t i f f f f f f f - 0 1 2 5 8 10 14 16 17 - Mobile Signal Info
-        '''
-	out_record = [
-            row[0],
-            int(row[1]) if row[1].isdigit() else -1,
-            float(row[2]) if is_real(row[2]) else 0.0,
-            float(row[3]) if is_real(row[3]) else 0.0,
-            float(row[4]) if is_real(row[4]) else 0.0,
-            't' if row[5] == 1 else 'f',
-        ]
-	'''
-
-        out_record = [
-            row[0],
-            int(row[1]) if row[1].isdigit() else -1,
-            int(row[4]) if row[4].isdigit() else -1,
-            int(row[5]) if row[5].isdigit() else -1,
-            int(row[6]) if row[6].isdigit() else -1
-         ]
-
-        # For Mobile Signal Info
+        # #For device battery stats
         # out_record = [
         #     row[0],
         #     int(row[1]) if row[1].isdigit() else -1,
-        #     int(row[2]) if row[2].isdigit() else -1,
-        #     int(row[5]) if row[5].isdigit() else -1,
-        #     int(row[8]) if row[8].isdigit() else -1,
-        #     int(row[10]) if row[10].isdigit() else -1,
-        #     int(row[14]) if row[14].isdigit() else -1,
-        #     int(row[16]) if row[16].isdigit() else -1,
-        #     int(row[17]) if row[17].isdigit() else -1,
+        #     float(row[2]) if is_real(row[2]) else 0.0,
+        #     float(row[3]) if is_real(row[3]) else 0.0,
+        #     float(row[4]) if is_real(row[4]) else 0.0,
+        #     't' if row[5] == 1 else 'f',
         # ]
+        #
+        # # For Wifi Info
+        # out_record = [
+        #     row[0],
+        #     int(row[1]) if row[1].isdigit() else -1,
+        #     int(row[4]) if row[4].isdigit() else -1,
+        #     int(row[5]) if row[5].isdigit() else -1,
+        #     int(row[6]) if row[6].isdigit() else -1
+        #  ]
+
+        For Mobile Signal Info
+        out_record = [
+            row[0],
+            int(row[1]) if row[1].isdigit() else -1,
+            int(row[2]) if row[2].isdigit() else -1,
+            int(row[5]) if row[5].isdigit() else -1,
+            int(row[8]) if row[8].isdigit() else -1,
+            int(row[10]) if row[10].isdigit() else -1,
+            int(row[14]) if row[14].isdigit() else -1,
+            int(row[16]) if row[16].isdigit() else -1,
+            int(row[17]) if row[17].isdigit() else -1,
+        ]
 
         records.append(out_record)
 
