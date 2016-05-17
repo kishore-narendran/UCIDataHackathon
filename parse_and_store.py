@@ -48,56 +48,53 @@ for row in reader:
     if i == 0:
         i += 1
         continue
-    try:
-        row_length = len(row)
 
-        # if row_length != first_row_length:
-        #     print '# of Attributes Mismatch, Skipping Line', i
-        #     continue
+    print row
+    row_length = len(row)
 
-        # i t t t i i 0 1 2 3 5 7 - Application Versions
-        # i i t 0 1 2 - Carriers
-        # i i i t i t 0 1 6 7 8 14 - Devices
-        # t i f f f i - Device Battery Stats
-        # t i i i i 0 1 4 5 6 - Wifi Info
-        # t i f f f f f f f - 0 1 2 5 8 10 14 16 17 - Mobile Signal Info
-        # #For device battery stats
-        # out_record = [
-        #     row[0],
-        #     int(row[1]) if row[1].isdigit() else -1,
-        #     float(row[2]) if is_real(row[2]) else 0.0,
-        #     float(row[3]) if is_real(row[3]) else 0.0,
-        #     float(row[4]) if is_real(row[4]) else 0.0,
-        #     't' if row[5] == 1 else 'f',
-        # ]
-        #
-        # # For Wifi Info
-        # out_record = [
-        #     row[0],
-        #     int(row[1]) if row[1].isdigit() else -1,
-        #     int(row[4]) if row[4].isdigit() else -1,
-        #     int(row[5]) if row[5].isdigit() else -1,
-        #     int(row[6]) if row[6].isdigit() else -1
-        #  ]
+    # if row_length != first_row_length:
+    #     print '# of Attributes Mismatch, Skipping Line', i
+    #     continue
 
-        # For Mobile Signal Info
-        out_record = [
-            row[0],
-            int(row[1]) if row[1].isdigit() else -1,
-            float(row[2]) if is_real(row[2]) else 'NULL',
-            float(row[5]) if is_real(row[5]) else 'NULL',
-            float(row[8]) if is_real(row[8]) else 'NULL',
-            float(row[10]) if is_real(row[10]) else 'NULL',
-            float(row[14]) if is_real(row[14]) else 'NULL',
-            float(row[16]) if is_real(row[16]) else 'NULL',
-            float(row[17]) if is_real(row[17]) else 'NULL',
-        ]
+    # i t t t i i 0 1 2 3 5 7 - Application Versions
+    # i i t 0 1 2 - Carriers
+    # i i i t i t 0 1 6 7 8 14 - Devices
+    # t i f f f i - Device Battery Stats
+    # t i i i i 0 1 4 5 6 - Wifi Info
+    # t i f f f f f f f - 0 1 2 5 8 10 14 16 17 - Mobile Signal Info
+    # #For device battery stats
+    # out_record = [
+    #     row[0],
+    #     int(row[1]) if row[1].isdigit() else -1,
+    #     float(row[2]) if is_real(row[2]) else 0.0,
+    #     float(row[3]) if is_real(row[3]) else 0.0,
+    #     float(row[4]) if is_real(row[4]) else 0.0,
+    #     't' if row[5] == 1 else 'f',
+    # ]
+    #
+    # # For Wifi Info
+    # out_record = [
+    #     row[0],
+    #     int(row[1]) if row[1].isdigit() else -1,
+    #     int(row[4]) if row[4].isdigit() else -1,
+    #     int(row[5]) if row[5].isdigit() else -1,
+    #     int(row[6]) if row[6].isdigit() else -1
+    #  ]
 
-        records.append(out_record)
+    # For Mobile Signal Info
+    out_record = [
+        row[0],
+        int(row[1]) if row[1].isdigit() else -1,
+        float(row[2]) if is_real(row[2]) else 'NULL',
+        float(row[5]) if is_real(row[5]) else 'NULL',
+        float(row[8]) if is_real(row[8]) else 'NULL',
+        float(row[10]) if is_real(row[10]) else 'NULL',
+        float(row[14]) if is_real(row[14]) else 'NULL',
+        float(row[16]) if is_real(row[16]) else 'NULL',
+        float(row[17]) if is_real(row[17]) else 'NULL',
+    ]
 
-    except:
-        print 'Row', i
-        print 'File Name', file_name
+    records.append(out_record)
 
     i += 1
 
