@@ -27,7 +27,7 @@ def is_real(num):
     except ValueError:
         return False
 
-file_name = 'mobdata/device_wifi_info_all_september.csv'
+file_name = 'mobdata/wifi_info_all_september.csv'
 first_row_length = 41
 print_status(True, file_name)
 
