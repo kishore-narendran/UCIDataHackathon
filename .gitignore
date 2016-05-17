@@ -73,3 +73,6 @@ target/
 pyvenv.cfg
 .venv
 pip-selfcheck.json
+
+#Ignoring M2Catalyst data
+data/
