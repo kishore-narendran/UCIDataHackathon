@@ -12,12 +12,12 @@ def print_status(started, file_name):
         print '========================================================================'
 
 def insert_into_records(conn, records):
-    args_str = ','.join(cur.mogrify("(%s, %s, %s)", x) for x in records)
-    cur.execute("INSERT INTO carriers VALUES " + args_str)
+    args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
+    cur.execute("INSERT INTO devices VALUES " + args_str)
     conn.commit()
 
-file_name = 'mobdata/carriers.csv'
-first_row_length = 3
+file_name = 'mobdata/devices.csv'
+first_row_length = 33
 print_status(True, file_name)
 
 # Reading the CSV file, and creating a CSV reader handle
@@ -34,21 +34,25 @@ i = 0
 
 records = []
 for row in reader:
-    if i == 0:
-        i += 1
-        continue
-
     try:
         row_length = len(row)
 
         if row_length != first_row_length:
             print '# of Attributes Mismatch, Skipping Line', i
+            continue
 
-        out_record = [int(row[0]) if row[0].isdigit() else -1, int(row[1]) if row[1].isdigit() else -1, row[2]]
+        # i i i t i t 0 1 6 7 8 14
+        out_record = [
+            int(row[0]) if row[0].isdigit() else -1,
+            int(row[1]) if row[1].isdigit() else -1,
+            int(row[6]) if row[6].isdigit() else -1,
+            row[7],
+            int(row[8]) if row[8].isdigit() else -1,
+            row[14]
+        ]
         records.append(out_record)
 
     except:
-        print 'Device ID', row[0], 'Timestamp', row[4], 'App Version ID', row[7], 'Battery', row[9], 'Back battery', row[10]
         print 'Row', i
         print 'File Name', file_name
 
