@@ -22,12 +22,12 @@ for deviceType, appIDs in device_app_mapping.items():
 			blackBox.fit(X, y)
 
 			p = blackBox.predict(X)
-			model = (blackBox.coef_, blackBox.intercept_, blackBox.mse(y,p)/len(y))
+			model = (blackBox, mse(y,p)/len(y))
 			models[deviceType][appID] = model
 		except:
 			pass
 
-file_name = 'blackBoxes'
+file_name = 'blackBoxes_objects'
 print '========================================================================'
 print 'Started packing into Msgpack ', file_name
 print '========================================================================'
