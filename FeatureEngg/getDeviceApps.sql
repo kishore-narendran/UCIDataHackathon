@@ -1,3 +1,8 @@
+DROP TABLE device_log_data;
+DROP TABLE sub_device_log_data;
+DROP TABLE device_app_groups;
+DROP TABLE sub_device_app_groups;
+
 SELECT 	device_type_id, devices.device_id, log_timestamp, application_version_id, 
 		battery, back_battery, cpu, back_cpu, memory, 
 		data_all, run_time, front_run_time, 
