@@ -11,8 +11,13 @@ def print_status(started, file_name):
         print 'Finished parsing and writing', file_name, 'to PostgreSQL'
         print '========================================================================'
 
-file_name = 'mobdata/application_versions.csv'
-first_row_length = 19
+def insert_into_records(conn, records):
+    args_str = ','.join(cur.mogrify("(%s, %s, %s)", x) for x in records)
+    cur.execute("INSERT INTO carriers VALUES " + args_str)
+    conn.commit()
+
+file_name = 'mobdata/carriers.csv'
+first_row_length = 3
 print_status(True, file_name)
 
 # Reading the CSV file, and creating a CSV reader handle
@@ -39,7 +44,7 @@ for row in reader:
         if row_length != first_row_length:
             print '# of Attributes Mismatch, Skipping Line', i
 
-        out_record = [int(row[0]), row[1], row[2], row[3], int(row[5]) if row[5].isdigit() else -1, int(row[7]) if row[7].isdigit() else -1]
+        out_record = [int(row[0]) if row[0].isdigit() else -1, int(row[1]) if row[1].isdigit() else -1, row[2]]
         records.append(out_record)
 
     except:
@@ -50,15 +55,11 @@ for row in reader:
     i += 1
 
     if i % 10000 == 0:
-        args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
-        cur.execute("INSERT INTO application_versions VALUES " + args_str)
-        conn.commit()
-	print 'Parsed, executed and inserted', i ,'records'
-	records = []
+        insert_into_records(conn, records)
+        print 'Parsed, executed and inserted', i ,'records'
+        records = []
 
-args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
-cur.execute("INSERT INTO application_versions VALUES " + args_str)
-conn.commit()
+insert_into_records(conn, records)
 handle.close()
 conn.close()
 print_status(False, file_name)
