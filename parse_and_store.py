@@ -13,10 +13,10 @@ def print_status(started, file_name):
 
 def insert_into_records(conn, records):
     args_str = ','.join(cur.mogrify("(%s, %s, %s)", x) for x in records)
-    cur.execute("INSERT INTO carriers VALUES " + args_str)
+    cur.execute("INSERT INTO application_versions VALUES " + args_str)
     conn.commit()
 
-file_name = 'mobdata/carriers.csv'
+file_name = 'mobdata/application_versions.csv'
 first_row_length = 41
 print_status(True, file_name)
 
@@ -46,8 +46,11 @@ for row in reader:
         # i i i t i t 0 1 6 7 8 14 - Devices
         out_record = [
             int(row[0]) if row[0].isdigit() else -1,
-            int(row[1]) if row[1].isdigit() else -1,
-            row[2]
+            row[1],
+            row[2],
+            row[3],
+            int(row[5]) if row[0].isdigit() else -1,
+            int(row[7]) if row[0].isdigit() else -1,
         ]
         records.append(out_record)
 
