@@ -12,7 +12,7 @@ def print_status(started, file_name):
         print '========================================================================'
 
 def insert_into_records(conn, records):
-    args_str = ','.join(cur.mogrify("(%s, %s, %s)", x) for x in records)
+    args_str = ','.join(cur.mogrify("(%s, %s, %s, %s, %s, %s)", x) for x in records)
     cur.execute("INSERT INTO application_versions VALUES " + args_str)
     conn.commit()
 
