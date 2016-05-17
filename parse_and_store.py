@@ -61,7 +61,7 @@ for row in reader:
             float(row[2]) if is_real(row[2]) else 0.0,
             float(row[3]) if is_real(row[3]) else 0.0,
             float(row[4]) if is_real(row[4]) else 0.0,
-            int(row[5]) if row[5].isdigit() else 1,
+            'true' if row[5] == 1 else 'false',
         ]
         records.append(out_record)
 
